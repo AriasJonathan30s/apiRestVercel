@@ -1,0 +1,905 @@
+<html>
+    <head>
+        <title>MONTANDO API</title>
+        <link rel="stylesheet" href="css/diseno.css">
+    </head>
+    <body>
+        <h1>NODEJS, MONTANDO NUESTRA PROPIA API REST SERVERLESS CON EXPRESS JS</h1>
+        <p>
+            Una vez visto lo basico de java script ya se tiene entonces la capacitacion para construir una
+            aplicacion, en este caso se buscara construir una pequena aplicacion que lo que hara sera contestar
+            datos a los usuarios cuando estos la llamen a travez de que ellos la llamen mediante una url con el
+            explorador, mas adelante se comenzara a construir APIs REST.
+        </p>
+        <h3>INTRODUCCION A NPM, EXPRESS Y API REST</h3>
+        <p>
+            Para comenzar se va a crear carpeta mediante cmd "mkdir intro-node" y luego se accessa como
+            "cd intro node", despues de eso se ejecuta el comando de npm "npm init -y" y como se puede notar se
+            acaba de crear un archivo llamado "package.json" el cual este archivo contiene "nombre, version,
+            descripcion, main, scripts que se podrian ejecutar tambien, keywords, autor y licencia." dentro del
+            editor de texto VSCode se procede a crear un nuevo archivo en la misma carpeta llamada "index.js",
+            dentro de este, se van a definir las primeras interacciones con node, pero parafacilitar el trabajo
+            se va a instalar una libreria para facilitar el trabajo de construccion de APIs con comando
+            "npm i -s express", sera usado mas adelante el comando se volvera a ver "npm". <br>"npm" es el
+            manejador de paquetes que viene instalado dentro de node, "i" es la instruccion para poder instalar,
+            "-s" para que se guarde dentro de las dependencias "express" es la libreria a usarse. <b>En caso de
+            tener curiosidad de conocer "express" visita la pagina <a href="expressjs.com"></a></b>, para
+            instalar en metodo especifico se debe escribir "npm i -s express@talVersion". <br>Al finalizar la
+            instalacion, se procede a trabajar en el archivo "index.js", se agrega constante express y manda a
+            traer la dependencia de express
+            "const express=require('express')" siempre se va a utilizar un string para encontrar las dependencias
+            y tododentro del parentesis para que la funcion "require" devuelve el modulo que se acaba deinstalar.
+            Para crear la aplicacion de express llamando a express "const app=express()" ya con esto se puede
+            comenzar a agregar metodos con express, comenzando con el siguiente metodo
+            "app.get('*',(request, response)=>{response.send({message: "mensaje x"})})" <br> Para que el servidor
+            comience a correr se tiene que utilizar la funcion "app.(3005,()=>console.log('nuestro servidor esta
+            escuchando puerto 3005'))" dentro del parentesis, lo primero escrito es el numero de puerto, despues
+            de la coma se hace uso de una fat arrow, donde va a decir el mensaje el cual dice el mensaje de que
+            puerto va a usar. <br>Ahora al ir a la terminal y se busca abrir el archivo "index.js" mediante los
+            accesos "cd carpeta", "cd carpeta", "node index.js", el cual ejecutara el puerto y queda a la espera
+            porque no ha devuelto en "workspace/intro-node" es ahora que se haga la prueba para que el servidor
+            demuestre que funciona, abriendo una pagina de internet con el puerto agregado "localhost:3005".<br/>
+            Require es una funcion que recibe un argumento, el stringes el nombre de la dependencia que se ha
+            instalado. Express() se ejecuta ya que es una funcion y esta se va a crear pues es asignada a la
+            constante "app" como tal aplicacion, ya que "app" esta se comienza a llamarle metodos, que en este
+            metodo "get" recibe todas las peticiones que pase mediante la url, por eso el "'*'" y el segundo
+            argumento de get es una funcion, esta funcion recibe los argumentos request y response, con response
+            se aprendio el metodo "send", este sirve para enviar y devolverle cosas al exporador web, como el
+            objeto "message:" con valor del "<b>'mensaje'</b>" el cual es un string, como tal no es un objeto,
+            pero para que salga en la pagina de internet, hay que encargarse de transformar el mensaje que contiene
+            a un objeto. <br/> Despues de  esto, se llama al metodo listen de app, el primero es el puerto y el
+            segundo es una funcion tipo call back el cual se ejecuta cuando el servidor se encuentre listo para
+            recibir las peticiones.
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/api1.jpg">
+            <img id="renglon" src="img/api2.jpg">
+        </div>
+        <h3>QUE ES UNA API REST</h3>
+        <p>Es una interfaz que se encuentra en la nube que permite que los clientes se conecten a la nube para
+            solicitar datos, lo cual la api se conectara a una base de datos, ira a buscar los datos que busca
+            el cliente y se los va a devolver a la API, al final ira a contestar al cliente con los datos que
+            el cliente solicito. <br />
+            Esta API puede ser consumida por varios tipos de clientes, sea por dispositivo movil o computadores,
+            pueden tambien ser micro-controladores o smartwatch. Per como consumir la API? Pues usando verbos
+            HTTP para comunicarse con la API como: <b>GET, POST, PUT, PATCH Y DELETE</b><br>
+            <b>GET</b>: es el verbo que se utiliza cuando se quiere listar un elemento en particular.<br/>
+            <b>POST</b>: cuando se queire crear un recurso.<br/>
+            <b>PUT</b>: cuando queramos reemplazar un recurso.<br/>
+            <b>PATCH</b>: cuando queremos actualizar un recurso, como cambiando un username, por otro, o
+                        reemplazar parcialmente.<br/>
+            <b>DELETE</b>: cuando queremos eliminar<br/>
+            Aclarando estos verbos, ahora hay que ver como llamar a la API desde el cliente. <br> Cada vez que
+            cuando queramos conectar a la API, sera indicando un recurso, y el recurso en este caso, seran
+            entidades en la base de datos, y todos los datos pueden ser todas las entidades disponibles de la
+            base de datos, y cada que se quiera listar por ejemplo "usuarios" lo que hay que hacer es llamar a
+            la ruta de la API "/users", en caso de que se quiera ir a buscar un elemento en particular seria
+            "/users/:id-recurso-a-buscar" con elemento de "GET".<br/>
+            Cuando se quiera crear un elemento se llamara el verbo de "POST" y llamara tambien a la ruta de
+            "/users".<br/>
+            Cuando se quiere reemplazar un elemento se se tiene que indicar con el verbo de "PUT" el id y la
+            ruta de users "/users/:id"<br/>
+            Cuando se quiere actualizar o reemplazar parcialmente un elemento, se usara mediante el elemento de
+            "PATCH" y al igual que el verbo de PUT usando la ruta de "/users/:id". <br/>
+            Y cuando se quiera eliminar un elemento se hace uso del verbo de "DELETE" y tambien llamar la ruta
+            de "/users/:id-del-recurso-a-eliminar".<br/>Todas estas rutas van a devolver un status que es un
+            numero, para "GET" es el numero de <b>200</b>, para "POST" es el numero <b>201</b>, para
+            "PUT, PATCH y DELETE", devolveran el numero de <b>204</b>. <br/>
+            Es muy comun que en algunas de las implementaciones de API implementen "PUT y PATCH" con el mismo
+            fin de actualizar parcialmente un recurso, pero tambien hay otras APIs que son mas estrictas en su
+            implementacion dejando "PUT" para reemplazar y "PATCH" para actualizar y es comunmente aceptado
+            cuando se quiere construir una API.
+        </p>
+        <h3>COMO FUNCIONA LA ARQUITECTURA SERVERLES</h3>
+        <p>
+            La arquitectura de modelo <b> tradicional</b> por lo general los clientes, se conectan a los
+            servidores que hacen una peticion a los servidores y los servidores se encargan de de gestionar
+            la carga de peticiones, lo cual para el ingeniero es importante que desarrollen un balanceador de
+            carga tambien conocido como <b>load balancer</b> que se encargue de distribuir la carga entre
+            distintos servidores, ademas de eso, no solo de encargarse del trafico de la red y dentro de ello
+            tambien encargarse de aumentar o disminuir la memoria de la CPU de los servidores, el cual tiene
+            un costo, que se encargue solamente de administrar los servidores, eso significa un costo por labor
+            de gestionar las peticiones, instalar la version del lenguaje a utilizar, etc. <br />
+            Los servicios <b>SERVERLESS</b> o <b>Serficio FAAS (Function As A Service)</b> se encarga de toda la
+            administracion de lo mencionado en el modelo tradicional, por ende no hay que preocuparse de los
+            balanceadores, instaladores, etc. Sin embargo los desarrolladores se encargan de escribir archivos y
+            este archivo se subira a una nube, y esa nube a medida que se hagan peticiones a la ruta de la nube,
+            que puede ser ruta de users, esta se va a encargar a buscar el archivo subido, lo va a montar sobre
+            la estructura de los servidores, va a ejecutar la funcion escrita en el archivo de js y esperara un
+            tiempo y despues de ese tiempo lo va a desmontar con el archivo de javascript y lo va a dejar
+            guardado en una base de datos, de manera que cuando se vuelva a llamar la ruta de users, la nube de
+            FAAS va a buscar al archivo de la base de datos, lo ejecuta y cuando deje de ejecutarse durante un
+            tiempo lo va a sacar de la memoria de los servidores. <br> De esta manera se comparte el
+            procesamiento de la nube junto con muchos clientes que se conectana esa nube.
+        </p>
+        <ul class="p">Esto representa varios beneficios como:
+            <li>No se administran servidores</li>
+            <li>Es mas barato pues no se utiliza el procesamiento completo durante ciertos horarios y
+                no se paga el costo total</li>
+            <li> El inconveniente es que cuando la nube va a buscar el archivo luedo a desmontar llamado
+                (ejecucionen frio).</li>
+            <li>La ejecucion en frio es cuando FaaS, a medida de que tiene peticiones va a buscar lso archivos,
+                cargar y ejecutar, lo que al tener la CPU con recursos limitados, por lo que si el procesamiento
+                de la maquina empieza a subir lo que va a liberar memoria, lo que quiere decir que los archivos
+                que estan grabados en la ram, los va al disco duro, de esta manera, solo va a tener cargado en
+                memoria cuando el archivo haya sido ejecutado hace poco tiempo y no es necesario que se cumpla
+                la condicion de CPU, tambien puede ser una condicion de tiempo por ejemplo en caso de que una
+                funcion no haya sido ejecutada hace 15 minutos tambien puede ser desmontada de la memoria y
+                enviado de vuelta en disco duro.</li>
+            <li>Sin embargo si este archivo esta cargado en la memoria, se manda a llamar a otra ruta que es users,
+                en ese caso va a volver a ejecutar la funcion desde la memoria de la nube y no tendra que buscarlo
+                al disco duro, el cual ese se le llama <b>EJECUCION EN CALIENTE.</b></li>
+        </ul>
+        <p>Por lo que cuando queramos construir una API REST, trataremos de diseñar que todas las rutas se
+            encuentren dentro de la misma ruta.}
+        </p>
+       <h3>REVISANDO NUESTRO PROVEEDOR FAAS</h3>
+        <p>
+            Para poder ver el proveedor de FaaS, hay que visitar la pagina
+            <a href="https://www.vercel.com">Vercel</a> el cual es bastante rapido, es gratuito, colaborativo,
+            las empresas que utilizan vercel, y algunas funcionalidades que tiene. Tiene 0 configuracion, tiene
+            certificado de SSL automatico. Lo importante de este va a ser el flujo de trabajo a optar y cada que
+            se realize un cambio, nosotros podremos enviarlo a una url como vercel.app y cuando queramos hacer un
+            despliegue a produccion, entonces se envia al dominio de la aplicacion, funciona con muchos
+            <b>Frameworks</b> pero en este caso se va a usar javascript para construir nuestra aplicacion,
+            aunque si se va a usar el framework de express, este se integra con Github, Gitlab, y Bitbucket, y
+            algo que es importante mencionar que el precio, ya que es gratuito en un comienzo, pero cuando va
+            creciendo, va a comenzar a costar. Aunque siendo que se esta comenzando, es importante por sus
+            beneficios.
+        </p>
+        <h3>INSTALANDO VERCEL</h3>
+        <p>
+            Para comenzar a instalar la linea de comandos de Vercel para poder comenzar el proyecto. Para eso se
+            comienza por visitar la pagina de <a href="https://www.vercel.com/download">Descarga Vercel</a>,
+            abriendo la terminal se escribe el comando de la pagina, se presiona enter, y se espera a ser
+            instalado con exito, para ello se crea un proyecto, para ello se necesita increar a la carpeta donde
+            estan los demas proyectos y luego se va a escribir "vercel init" el cual la terminal respondera con
+            un listado de proyectos en el cual nos podemos basar para desarrollar, el cual se va a utilizar
+            "custom build", despues podremos ingresar al proyecto llamado "custom-build"
+            (<b>Sin embargo este build ya no se encuentra disponible, mediante investigacion puede usarse el
+            "create-react-app"</b>) y se puede cambiar el nombre de carpeta con la linea de codigo llamado
+            "mv create-react-app serverless" (en caso de windows puede ser por medio del explorador de archivos),
+            despues se accesa al proyecto llamado "serverless" con el comando cd serverless".
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/vercel1.jpg">
+        </div>
+        <h3>DESPLEGANDO NUESTRA APP</h3>
+        <p>
+            Para comenzar a desplegar la app, primero es vincular una cuenta en Vercel, para ello hay que crear
+            cuenta en caso de no tener cuenta, de tenerla, pueden hacer uso de las opciones, sean gitHub, gitLab,
+            Bitbucket o por el correo electronico. Despues se procede a vincular la cuenta con la terminal a la
+            nube de servicio de Vercel, lo primero es escribir vercel en comando, lo primero es inidicar a
+            configurar y desplegar la configuracion de "serverless" se elige "Y", tambien pregunta si quiere usar
+            el "usuario", si es correcto "enter", pregunta si quiere vincular el proyecto a uno ya existente o
+            sencillamente si no lo queremos hacer, se elige "N", pregunta cual es el nombre del proyecto, se
+            aplica "serverless", pregunta por la direccion del proyecto, automaticamente se eliga "./" el cual
+            indica que es la direccion que ya se estaba trabajando en terminal, indica que no ha encontrado
+            ningun framework y pregunta si quiere sobreescribir, se indica "N", y termina desplegando la carpeta
+            en la nube de Vercel. Dando mediante la terminal una linea de inspect con una pagina para poder
+            confirmar que la carpeta se quedo en la pagina Vercel.<br /> En la terminal deja una linea de
+            instruccion para hacer uso del despliegue a produccion el cual dice lo siguiente "To deploy to
+            production (serverless-amber-one.vercel.app), run 'vercel --prod'" sin embargo las lineas de
+            comando seran Vercel en todo momento, el cual la carpeta ya esta en linea de produccion pero no
+            tiene nada aun.
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/vercel2.jpg">
+        </div>
+        <h3>DESPLEGANDO NUESTRA PRIMERA FUNCION</h3>
+        <p>
+            Es hora de realizar una funcion que cuando nosotros la despleguemos a Vercel y vayamos a consultar
+            esta, que nos devuelva un mensaje un "hola mundo", para ello es necesario abrir el editor de texto,
+            se agrega un archivo en carpeta api y dentro de api, crearemos un archivo el cual va a ser ejecutado
+            cuando ingresemos a una ruta determinada. Lo que se va a escribir es "module.exports=(req,res)=>{}",
+            "request" es el encargado de contener toda la peticion de que esta haciendo todo cliente, y
+            "response" va a tener los metodos pertinenetes para devolver los datos al usuario que esta haciendo
+            la peticion. Por ende dentro de las llaves queremos que se devuelva un string de hola mundo por ende
+            "{res.send('Hola mundo')}" y se guarda. Despues accesamos a la terminal y se despliega nuevamente
+            usando el comando de "Vercel", se ingresa a la ruta de la pagina de Vercel sugerida por cmd. Es
+            posible que venga con algun contenido u objetivamente nada, por ende, lo que se tiene que hacer en la
+            direccion URL, es agregar la direccion de la carpeta y el nombre del archivo sin su tipo de archivo
+            "/api/index".
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/apipage1.jpg">
+            <img id="renglon" src="img/apipage2.jpg">
+        </div>
+        <h3>QUE APLICACION VAMOS A CONSTRUIR?</h3>
+        <p>
+            Una vez teniendo en cuenta como es que funciona este tipo de servidor sin necesidad de solicitar
+            algun proveedor de servicios, con lo poco que se ha mostrado como basico, aunque el contenido no es
+            nada interesante pero es momento de comenzar a crear una aplicacion, llamada "Almorzo" esta
+            aplicacion se encarga de contactar a las personas que estan trabajando con horarios de cocina, el
+            chef si tiene un emprendimiento el cual se encarga de cocinar algunos platillos de comida, les saca}
+            foto y conforme a lo que publica, la gente hace los pedidos y el chef se encarga de entregar los
+            alimentos, por ende se tiene que hay que hacer una aplicacion movil para que los clientes puedan
+            realizar esos pedidos, asi es que se pueda automatizar los pedidos y no tener que leer los pedidos.
+            Por ende la aplicacion movil debe contener el menu del dia y este pueden ser varios platos, donde los
+            usuarios van a elegir alguno de esos platos para que el restaurant solicite los platos. Por ende se
+            debe tener los siguientes datos: <br /> Por parte del chef,<b> Id_plato,nombre, Descripcion</b><br />
+            Por parte del cliente, <b>Id_pedido, id_plato_pedido, user_id.</b>
+        </p>
+        <h3>CONOCIENDO NUESTRO PROVEEDOR DE BASE DE DATOS Y CREANDO UNA</h3>
+        <p>
+            Para darle vida a la aplicacion hay que guardar los datos en una base de datos, los datos que hay
+            que guardar, son las ordenes asi como los platos de comida del chef. <br /> Para ello se va a
+            introducir un servicio que permitira guardar los datos, este servicio se llama
+            <b><a href="https://www.mongodb.com/">MongoDB</a></b>. Para comenzar hay que presionar el boton
+            <b>Start Free</b>, se ingresa datos en caso de no tener una cuenta, al no tener alguna base de datos,
+            se presiona en crear, se elige el gratuito, se elige el ip de la pc que se usa actualmente, tambien se
+            crea usuario y contraseña, se elige acceso lo mas local posible, se elige la opcion de 0mb con 516 ram,
+            y presiona close. Despues si se quiere agregar a algun usuario mas, se presiona el boton database
+            access y despues se presiona el boton agregar nuevo usuario, con esto se tiene listo el cluster o
+            database.
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/cluster1.jpg">
+            <img id="renglon" src="img/cluster2.jpg">
+        </div>
+        <h3>INSTALANDO DEPENDENCIAS Y CONDECATANDOSE A MONGO ATLAS</h3>
+        <p>
+            Comenzando a instalar las dependencias, lo promero que hay que hacer es colocarnos en la carpeta
+            donde se esta manejando el proyecto para despues escribir en la direccion en la terminal
+            "npm i -s express mongoose body-parser cors" donde "mongoose" es la libreria que se va a utilizar
+            para conectarnos a MongoDB, esta cumple como una capa que se coloca encima de MongoDB para
+            conectarnos, "body-parser" esta libreria tomará todas las peticiones que hagamos al servidor y
+            convertira en objetos JSON, si no se usa esta libreria al llegar al servidor no se podra identificar,
+            mientras "cors" es una libreria que permite habilitar la peticion desde las url distintas, esto es
+            muy importante al construir el servidor en un futuro, ya que si se desarrolla en local e intente
+            conectar al servidor, este arroja un error de cors, diciendo que el servidor no esta permitiendo
+            llamadas desde distintos dominios, como el server de vercel y el localhost el cual se desarrolla
+            desde la pagina,  al instalar cors y habilitarlo, permitira aceptar peticiones desde urls que no son
+            las suyas.<br />
+            Al termino de la instalacion dentro de la carpeta del proyecto, ahora entramos al proyecto,
+            ingresamos a la carpeta "API" luego modificamos "index.js". Procedemos a borrar lo que habia, y
+            despues se procede a importar express "const express= require('express')" donde "const" crea la
+            constante, "express" para asignar el nombre de express para lo que se esta importante y "require"
+            para importarlo con "('express')" pasa el nombre de paquete como string. <br /> Para poder comprender
+            y estar seguros de lo que se trae la libreria, se busca en la carpeta "node_modules/express". Tambien
+            se procederá a importar "const mongoose=require('mongoose')", "const bodyParser=require('body-parser')"
+            y "const cors= require('cors')"<br /> Para despues crear la aplicacion de express, para crearlo se
+            crea una "const app= express()", despues se aplica el metodo de use con "app,use()" para poder ir
+            agregando funcionalidades en el servidor como "app.use('bodyParser.json')" asi devuelve un plugin
+            con la funcion de app.use, tambien se agrega el otro plugin "app.use(cors())", todas las plugins
+            tienen formas distintas de utilizarse, para eso hay que ira la documentacion de cada plugin para ver
+            como se debe de configurar con el servidor express. <br /> Despues se procede a hacer la conexion de
+            datos con mongoose
+            "mongoose.connect(process.env.MONGO_URI,(useNewUrlParser: true,userUnifiedTopology: true))"
+            sonde "mongoose" nos permite conectarnos a la base de datos que se ha creado en Mongo atlas,
+            ".connect" el metodo que nos interesa para conectar a la base de datos, "process.env" permite acceder
+            a las <b>variables de entorno</b>, "MONGO_URI" es una <b>variable de entorno</b> aunque no se ha
+            creado aún, "useNewUrlParser: true, userUnifiedTopology: true" es un objeto de configuración, estas
+            dos opciones son necesarias por el momento para poder interpretar la URL con el formato que se va a
+            pasar en la linea ya que si no se hace va a generar un warning indicando que si estas opciones estan
+            desabilitadas quiere decir que estara trabajando con una version deprecada de la libreria. Se procede
+            a hacer un "module.exports=app" y arriba de este, se indicará que es lo que se quiere setear, entonces
+            cuando se quiera llamar cual quier ruta con metodo
+            "app.get('*',(req,res)=>{res.send('Hola otra vez')})". Luego de redactarlo, en la terminal se despliega
+            la aplicacion en vercel escribiendo "vercel", la terminal respondera con las dos paginas, la pagina
+            preview no servira, por ende, se copia la pagina <b>inspect</b>, aparecera la pagina de vercel,
+            despues presionamos en "servicio->settings" en la parte de la izquierda aparecera la opcion de <b>
+            "Enviroment Variables"</b> se marcan los checkbox y se pega la <b>variable de entorno</b> "MONGO_URI",
+            despues vamos a la pagina de Mongodb, nos colocamos en la tab de "Databases" presionamos donde dice
+            "connect" despues presionamos donde dice "connect your application" despues copia el enlace que
+            comienza con "mongodb+srv://..." lo pegamos en el archivo index para editarlo borramos "&lt;password>"
+            y escribimos la contraseña establecida en la base de} datos originalmente, lo copiamos todo de nuevo,
+            en la pagina de Vercel escribimos la variable "MONGO_URI" y en value pegamos lo copiado. Los
+            checkboxes pertenecen a los otros entornos de "preview" y "development", podemos desplegar por si las
+            dudas en Vercel, y una vez desplegado si vamos a la pagina de la terminal donde dice "Preview",
+            agregamos en el link la subdireccion "api/index". <br /> Todos los pasos seguidos en el archivo index
+            son sumamente necesarios, si no montamos el servidor de express, la funcion no va a funcionar, si no
+            habilitamos los "cors" cuando estemos haciendo debuging en el servidor local, no va a funcionar, si
+            no escribimos las lineas de conexion a mongo no va a funcionar y si no colocamos en el metodo "get"
+            las lineas de fat arrow function, no va a aparecer nada, ademas es importante agregar las variables
+            de entorno en Vercel, de no hacerlo en produccion, preview y development, no va a funcionar. <br />
+            <b>
+                NOTA: en el proceso de entrenamiento, muestra ciertas fallas al hechar a andar la pagina, es
+                necesario poner atencion a lo escrito anteriormente debido a que se encontro que las siguientes
+                librerias no deben de estar en el archivo: "const cors=require('cors')" y "app.use(cors())". Si
+                se suben con estas dos lineas en el programa, generara error en la pagina.
+            </b>
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/mongose1.jpg">
+            <img id="renglon" src="img/mongose2.jpg">
+            <img id="renglon" src="img/mongose3.jpg">
+            <img id="renglon" src="img/mongose4.jpg">
+            <img id="renglon" src="img/mongose5.jpg">
+            <img id="renglon" src="img/mongose6.jpg">
+            <img id="renglon" src="img/mongose7.jpg">
+            <img id="renglon" src="img/mongose8.jpg">
+            <img id="renglon" src="img/mongose9.jpg">
+            <img id="renglon" src="img/mongose10.jpg">
+            <img id="renglon" src="img/mongose11.jpg">
+        </div>
+        <h3>CREANDO LOS MODELOS DE BASE DE DATOS</h3>
+        <p>
+            Para crear los modelos de base de datos para meals y orders para que mas adelante cuando se comience
+            a interactuar la base de datos, podamos usar las referencias de la base de datos para buscarlos,
+            actualizarlos y tambien eliminarlos.  <br /> Visualizando el archivo index.js, dentro de la conexion
+            de la base de datos de mongoose, creando un end point que decia 'Hola otra vez', lo que ahora se va
+            a hacer, es crear una carpeta dentro de la actual carpeta "/api" llamada "/models" en esta carpeta
+            ahora agregamos archivo "meals.js". En este archivo meals, que esta vacio, importamos la libreria
+            mongoose "const mongoose=require('mongoose')" y en mongoose esta una propiedad llamada Schema el cual
+            permite crear o definir nuestros modelos en el codigo "const Schema =mongoose.Schema", una vez
+            declarada la constante de schema, se comienza a crear los modelos, el primero a crear es el de 
+            "const Meals=mongoose.model('Meal',new Schema({ name: String, desc: String,}))" Luego se procede a
+            exportar el modulo que se acaba de crear "module.exports=Meals" y con eso concluye el primer modelo.
+            <br /> Ahora se procede a crear nuevo archivo llamado "orders.js" se hará algo similar a lo que se
+            hizo en "Meals" con los siguientes codigos "const mongoose=require('mongoose') const"
+            "Schema=mongoose.Schema"
+            "const Orders=mongoose.module('Order',new Schela({meal_id: {type:Schema.Types.ObjectId, ref: 'Meal'},use_id: String, }))"
+            "module.exports=Orders" <br/>
+            <b>NOTA: Con Schema se puede crear o definir los modelos en el codigo.
+                <br /> El modelo Meals "model('Meal')" es el nombre que tendra el modelo y en forma singular,
+                "('Meal', new Schema())" es el nuevo esquema en el modelo y dentro del Schema contrentra un objeto
+                literal el cual se asigna las siguientes propiedades como "name: String," donde "name:" contiene un
+                objeto string, el cual todos los objetos que se bayan a crear dentro de la conexion de 'Meal' va a
+                tener una propiedad en la cual se va a llamar 'name' y es tipo string, la siguiente propiedad que es
+                la descripcion "desc: String" es tipo string. <br /> En el modelo "Orders", en el cual al definir
+                las ordenes se aplica un nuevo Schema, donde se tiene que pasar un objeto literal el cual una
+                orden debe estar compuesto por un usuario y el plato de comida que ha elegido, el cual no se
+                puede guardar el plato de comida completo en esta orden pero si la referencia en la "orden" de
+                comida, por lo cual en vez de indicar el nombre de plato de comida, mejor se indica el id del
+                plato de comida, los id son identificadores son unicos e irrepetibles. <br /> entonces el objeto
+                sera "meal_id: {type:Schema,Types.ObjectId, ref: 'Meal'}" donde "meal_id" se le pasa un objeto
+                que es "type:" que el cual se le pasa el "Schema." que el cual tine otra propiedad que es
+                "Types." el cual indica que tipo de dato es el que se va a guardar, si es que no es string,
+                boolean o es numero, como por ejemplo: sea "ObjectId," al ser ObjectId indica que lo que se va
+                a guardar sea un identificador del id en otro documento, cuya referencia es la de "ref: 'Meal'",
+                lo mismo aplica con "user_id" el cual se creeara luego, asi que de mientras se deja como
+                "user_id: String,".
+            </b>
+
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/dbmodels.jpg">
+            <img id="renglon" src="img/dbmodels2.jpg">
+            <img id="renglon" src="img/dbmodels3.jpg">
+        </div>
+        <h3>CONFIGURANDO PARA EJECUTAR LA APLICACION EN LOCAL</h3>
+        <p>
+            Para hacer andar el proyecto en local se va a proceder a realizar el codigo de "index.js" en el cual,
+            las variables de entorno que originalmente estan almacenadas en Vercel. Sin embargo para poder
+            trabajar en local hay que configurar esa variable de entorno en la maquina o hacer un archivo
+            "*.env" que contenga las variables de entorno necesarias para trabajar con "index.js", el cual la
+            segunda opcion es la mas sencilla. Para comenzar a hacerlo, tenemos que ir a la terminal de comandos
+            y escribir "vercel env pull" para que descargue las variables de entorno, que se encuentran
+            configuradas en nuestro ambiente de trabajo, el cual al inspeccionar el ambiente ya se encuentra el
+            archivo ".env", este contrendrá el string que teniamos almacenado en vercel para poder conectarnos en
+            la base de datos. Lo que ahora se va a hacer es crear el archivo llamado "vercel.json" que tiene la
+            siguiente configuracion el cual hay que agregar la propiedad ""Rewrites":", este objeto, debe tener
+            las comillas dobles, esta propiedad busca el objetivo que podamos tomar todas las peticiones que
+            hagamos en la aplicacion y redirijamos siempre a la misma ruta, de esta manera, se podra usar un
+            solo archivo para poder manejar todas las peticiones de la api, y eso se va a hacer desde el mismo
+            archivo, entonces se va a pasar un arreglo
+            "[{"source: "/(.*)","destination: "/api/index"}]" donde ""source:""/(.*)","
+            es la fuente de donde vienen los cambios y ""destination":"/api/index"" es a donde queremos redirigir
+            todas las peticiones que hagamos, entonces se redirigen a api/index, el cual hara, sea independiente
+            a la ruta que nosotros llamemos, el archivo index se encargará de hacer todas las peticiones, no
+            significa que nosotros ejecutaremos la misma porcion de codigo, lo importante es que todas las
+            peticiones se manden a ese archivo para que ese archivo pueda gestionar a que archivo o que funcion
+            va a realizar. <br /> Continuando en la terminal de codigo, escribimos "vercel dev" para que
+            descargue las ultimas versiones del entorno de desarrollo, despues va a ejecutar un par de mandos
+            mas automaticamente, donde al final muestra si la instalacion tuvo exito o no, ademas de una
+            direccion la cual se va a utilizar para acceder a nuestro proyecto, al presionar sobre esa y se
+            escribe "/api/index" el cual saldra el mensaje que habiamos dejado, esto con la finalidad de que
+            podramos asegurarnos que el archivo alli esta. <br />
+            <b>
+                Nota: Se presentaron unos problemas en el proceso de la manipulacion de los archivos, esto
+                debido a una mala instalacion en los cursos anteriores, al momento de escribir "vercel dev" la
+                terminal dejo en linea que el objeto "react-scripts" no fue encontrado, es por eso que buscando
+                por internet, se encontro no solo el error pero la solucion, y eso precizamente se sugiere.
+                Buscar en internet para encontrar las soluciones. Como tal, el proceso que se procedio a resolver
+                este error fue borrar la carpeta "node_modules" y en terminal colocandonos en la direccion de
+                "serverless" se procede a escribir "npm install" para que instale todo lo que no quedo bien
+                instalado inicialmente. No obstante, podrian quedar algunas bulnerabilidadez que si se investiga
+                se tendra que resolver manualmente ya que mediante "npm audit fix" lo sugirio en respuesta.<br />
+                Si encuentra otro error, es conveniente buscar en internet.
+            </b>
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/error.jpg">
+            <img id="renglon" src="img/localconf1.jpg">
+            <img id="renglon" src="img/localconf2.jpg">
+        </div>
+        <h3>DANDOLE ESTRUCTURA A LA APP</h3>
+        <p>
+            Para darle un poco mas de estructura al codigo y la aplicacion para que no quede todo el codigo que
+            se escriba solamente en un archivo, por ende se tiene que crear nuevos archivos de las rutas que hay
+            que manejar, a modo de ejemplo, si se quieren manejar todas las rutas en el mismo archivo, se tendra
+            que copiar la misma linea de codigo de "app.get('*',(req, res)=>{...})" en "index.js" dando como
+            resultado una gran cantidad de las mismas lineas de codigo con las diferentes rutas a dirigir, por
+            eso es que seria contraproducente porque quedarian como 15 end points en la aplicación y cambiarlo de
+            la siguiente manera: en la linea "app.use(cors())" recibe una funcion como un <b>plug in</b> o como
+            un <b>middle ware</b> que se va a ejecutar dependiendo de las instrucciones que se le indique, esta
+            misma sintaxis funciona tambien para pasarle rutas a la aplicacion "index.js" de "/api", tal como la
+            linea de aplicacion "app.get('*',(req, res) =>{res.send('Hola otra vez')}" puede borrarse y cambiarse
+            por "app.use('/api/meals',meals))" el cual la string que se muestra con las <b>Slashes</b> buscara
+            identificar la ruta que queremos que maneje y la variable "meals" va a ser una instancia de un router
+            "const meals = app.router()" que esta de nuestra aplicacion donde se le puede indicar
+            "meals.get('/',(req,res)=>{...})" la url que queremos que maneje, como la raiz, y dentro de la raiz,
+            tiene que recibir los objetos de request y response, queda en la logica que se desea que se ejecute. <br />
+            Por ende "req,res" pasa a la ruta "<b>'/'</b>" de "meals" que esta sacada con metodo de "router()"
+            que esta en "app." que esta sacada de "express()" y la cual la constante "meals" se esta pasando a
+            "app.use", cuyo primer argumento "<b>'/api/meals'</b>" es un string, y el segundo argumento es la
+            constante "const meals=app.Router()" el cual es el argumento que contiene las rutas. <br />
+            Cuando se empieza a agregarle las rutas para que este la maneje, lo que hara cuando se llame la url
+            del explorador web, sera manejar o ejecutar la logica "meals.get('/',(req,res)...)" se tendra que
+            llamar a la ruta "<b>'/api/meals'</b>" pero si queremos hacer uso de otro verbo entonces podria
+            escribirse una linea de logica como "meals.post('/', (req,res)=>{...})" con la ruta de
+            "<b>'/api/meals'</b>". <br />
+            Para ordenarlo aun todavia mas, toda esta logica se puede definir en otro archivo y se define una
+            const "const meals = require('./routes/meals')", despues se crea la carpeta y archivo y se pega en
+            archivo "meals" lo que se recorto en el archivo "index.js" aunque tambien importando express con
+            "const express= require('express')" y en vez de tener la original constante meals, la podemos
+            cambiar como en el siguiente ejemplo "router.get(...)..." asi como "router.post(...)..." y por ahora
+            en "get" se escribe "res.send('Hola meals')" y en "post" se escribe "res,.send('post meals')" y al
+            final se escribe una ultima linea para exportar los argumentos anteriores "module.exports=router" y
+            lo mismo se va a crear un nuevo nodo el cual seria un nuevo archivo que se va a crear llamado
+            "orders" y en vez de escribir en los argumentos "<b>'hola meals'</b>" se cambiara por
+            "<b>'hola orders'</b>" asi como  "<b>'post orders'</b>" y como el archivo anterior fie llamado y
+            redirigido, se creara otro llamado "const orders = trquire('/routes/orders')" asi como crear otra
+            aplicacion que tendra la funcion en "app.use('/api/orders',orders)"
+        
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/appstruct.jpg">
+            <img id="renglon" src="img/appstruct2.jpg">
+            <img id="renglon" src="img/appstruct3.jpg">
+            <img id="renglon" src="img/appstruct4.jpg">
+            <img id="renglon" src="img/appstruct5.jpg">
+            
+        </div>
+        <h3>AGREGANDO INTERACCION CON MONGO DB</h3>
+        <p>
+            Una vez configuradas las dos urls de meals y orders, es momento de agregar las rutas que queremos
+            agregar, es por eso regresamos a la carpeta de "routes" donde ingresaremos al archivo meals, el
+            cual se tiene la convencion de "get" y "post", sin embargo queremos la convencion de "rest" y la
+            convencion de rest, consta de GET cuando queremos el listado, GET cuando queremos el unico elemento,
+            POST cuando queremos crear un elemento, PUT cuando queremos actualizarlo y DELETE cuando queremos
+            eliminarlo. <br /> El conjunto del modelo que hemos creado de meals, vamos a utilizar un par de
+            metodos para que nos entreue mongoose para que facilite realizar estas operaciones como, listar,
+            buscar uno, crear, actualziar y eliminar, por ende importa el modelo de meals con
+            "const Meals = require('--/models/Meals')", despues se modifica la linea "const router=app.Router"
+            para para despues se creara un codigo dentro de "router.get" el cual es para obtener todo el listadio
+            y asi que se agrega "Meals.find()" el cual lo que hara es ir a buscar todos los elementos que se
+            encuentren dentro de la conexion de Meals, despues indicamos ".exec()" para que ejecute nuestra "Query"
+            y eso lo que hara es devolvernos una promesa ".then(x=>res.status(200).send(x))" donde ".then(x=>)" el
+            cual indicara que es lo que queremos devolver, res.status(200).send(x) aqui queremos devolver un codigo
+            de 200, y end para enviarle la data, <b>Para saber sobre status codes, visita la pagina
+            <a href="https://es.wikipedia.org/wiki/Anexo:C%C3%B3digos_de_estado_HTTP">Status Codes</a></b>
+            asi no sera necesario inventar algun estado de alguna pagina. Por ultimo, la linea que se tenia
+            que era "res.send('hola meals')" se procede a eliminar y se continua con la siguie instruccion de
+            router. <br /> Por consiguiente crearemos la siguiente instruccion de GET por ID para recibir
+            un parametro cuyo nombre es id, y el resto sera parecido al indicado al codigo anterior <br />
+            "router.get('/:id',(req,res)=>{Meals.findById(req,params.id) .exec() .then(x=> res.status(200).send)})" <br />
+            Despues se aplica el metodo POST el cual seria asi: <br />
+            "router.post('/',(req,res)=>{Meals.create(req.body).then(x=>res.status(201).send(x))})" <br />
+            Despues se aplica el metodo PUT el cual seria asi: <br />
+            "router.put('/:id',(req,res)=>{Meals.findOneAndUpdate(req.params.id, req.body) .then()=> res..sendStatus(204)})" <br />
+            El cual se llama a Meals.findOneAndUpdate, esto lo que hara es encontrar un elemento por el id con
+            "req.params.id" y el segundo argumento es el de "req.body". Para poder decidir si devolvemos algo al usuario
+            o no, aunque no es necesario que se le devuelva al usuario, asi que por ahora se hara uso de
+            ".then(()=> res.sendStatus(204))" aunque insistentemente enviarle los datos es contraproducente
+            porque el cliente ya tendria esos datos. <br />
+            La nueva ruta para eliminar DELETE, se procede al siguiente codigo: <br />
+            "router.delete('/:id',(req,res)=>{Meals.findOneAndDelete(req.params.id).exec().then()=>res.sendStatus(204)})" <br />
+            Despues se copiara todo el codigo de Meals, abrimos el archivo de Orders y reemplazamos el codigo
+            anterior pegando el codigo que habiamos copiado, para despues remplazar la variable "Meals" por
+            "Orders"
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/struct2app.jpg">
+            <img id="renglon" src="img/struct2app2.jpg">
+        </div>
+        <h3>PROBANDO NUESTRA APP</h3>
+        <p>
+            Ya con los archivos realizados, lo siguiente a trabajar es abriendo la terminal y escribe sobre
+            la direccion original de "serverless" la siguiente funcion "vercel dev" y ya marcando que la url
+            esta disponible, es momento que se abra una pagian de internet con la url que la terminal indica,
+            agregando la direccion donde se encuentra la direccion de la carpeta de index.js
+            "/serverless/api/meals/", el cual aparecera unos corchetes.
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/pruebaapp.jpg">
+            <img id="renglon" src="img/pruebaapp2.jpg">
+        </div>
+        <h3>DESCARGANDO E INSTALANDO POSTMAN</h3>
+        <p>
+            La herramienta para probar los end-points y que se va a descargar se llama
+            <b><a href="https://www.postman.com/">POSTMAN</a></b>, automaticamente detectara el tipo de
+            sistema operativo que tiene para descargar el mas adecuado. Como en este ejemplo se aplica windows,
+            permita que instale de manera completa. Una vez abierta la ventana de postman continue en el
+            siguiente tema.
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/downloadpostman.jpg">
+            <img id="renglon" src="img/downloadpostman2.jpg">
+        </div>
+        <h3>PROBANDO NUESTRA API CON POSTMAN</h3>
+        <p>
+            Para poder probar que la api este corriendo usando el comando "now dev" y asegurandonos de que este
+            corriendo se accesa a la url que la terminal menciona despues accesamos a la direccion especificada el
+            cual saldran los corchetes mencionados anteriormente y luego abrimos postman, en postman presionamos
+            sobre workspace, agregan una nueva pestaña y copian la direccion de la pagina de los corchetes, para
+            despueshacer uso de las siguientes funciones que son GET, POST, PUT, DELETE. <br />
+            Para el metodo GET: accesamos a la direccion de la pagina "localhost:XXXX/api/meals" en metodo GET." <br />
+            Para el metodo POST: manteniedo la misma ruta pero en la tab de "Headers" escribimos en
+            KEY "Content-type" y en VALUE escribmos "application/json", para despues ir a la pestaña de "BODY"
+            elegimos la opcion "ROW" para insertar un objeto JSON que son las llaves "{}", el cual es muy importante
+            porque cuando se vayan editar las propiedades, es necesario agregarle las comillas dobles a los
+            elementos como <b>"name":"hotdog" "desc":"contenido del hot dog"</b> para despues presionar en "SEND",
+            en la parte inferior de postman, mostrara el mapa de los datos que se enviaron. <br />
+            Para el metodo de GET by ID, simplemente se copia el id del elemento que este guardado y se selecciona
+            la opcion de GET pero agregando le a la direccion "api/meals" con el id del elemento "/id_78967978$&%"
+            que quieran seleccionar <br />
+            Para el metodo de PUT: modificamos el contenido del script y lo ponemos como
+            "Hamburgesa":"Carne con piña y lechuga" elegimos "PUT" y sobre la direccion con la id seleccionada,
+            presionamos "SEND". el cual generara el status (204) por ende elegimos GET y sin el ID y presionamos
+            "SEND" para ver si ha sido actualizado, el cual es correcto. <br />
+            Para el metodo de DELETE: presinamos la opcion "DELETE" elegimos el ID y presionamos en "SEND". <br />
+            Por ultimo hay que recordar que los <b>status</b> son muy importantes porque con ello se puede
+            demostrar que las peticiones hayan sido enviadas correctamente, y despues confirmamos que el arreglo
+            quede vacio con metodo "GET" y confirmar que quede vacio y con el link 200 significa que esta OK. <br />
+            Con eso tiende a demostrar que la funcion de nuestra <b>API REST</b> este dando la funcion que
+            deseabamos, tanto como para <b>meals</b> y <b>como orders</b>.
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/pruebapostman.jpg">
+            <img id="renglon" src="img/pruebapostman2.jpg">
+            <img id="renglon" src="img/pruebapostman3.jpg">
+            <img id="renglon" src="img/pruebapostman4.jpg">
+            <img id="renglon" src="img/pruebapostman5.jpg">
+            <img id="renglon" src="img/pruebapostman6.jpg">
+            <img id="renglon" src="img/pruebapostman7.jpg">
+            <img id="renglon" src="img/pruebapostman8.jpg">
+            <img id="renglon" src="img/pruebapostman9.jpg">
+            <img id="renglon" src="img/pruebapostman10.jpg">
+        </div>
+        <h3>¿COMO SERÁ LA INTERAZ QUE CONSTRUIREMOS?</h3>
+        <p>
+            Ya se ha realizado el proceso de back end para poderlos guardar en la base de datos, para ello hay que
+            visualizar como queda distribuido el contenido, con lo basico que se lleva en el curso, se ilustraria
+            una imagen dividida en 2, donde del lado izquierdo se encuentra el segmento de Meals, donde se
+            encontrara una lista, el cual contendra la lista de los alimentos, mientras a la derecha de la imagen,
+            se encontrar el segmento de Orders se mandara a traer desde el servidor y se van a ir mostrando en una
+            lista no ordenada, estas ordenes estaran siendo trayendo a medida de que se presione cada plato de
+            comida, por ejemplo si se elige algun plato de comida o Meal, lo que se hara en el costado derecho se
+            mostrará un mensaje de cargando mientras en realdiad este cargando el listado con todas las ordenes
+            que se esten generando, tambien teniendo esto que es importante tener un formulario o mejor dicho un
+            boton para que pueda generar ordenes, por ejemplo ¿Que pasaria si el cliente elige un plato y quiere
+            generar una orden la cual tiene que ser almacenada en el servidor?, por eso se tendra que agregar un
+            boton que diga Generar Orden, que cuando se presione ese boton pueda ver cual de los meals fue
+            seleccionado y con eso haga el llamado al servidor para que haga una orden en la parte derecha de
+            Orders o sea un elemento nuevo en list, y cuando el cliente este en proceso de que este generando se
+            bloquee el boton.
+            
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/prototipo.jpg">
+        </div>
+        <h3>ARMANDO HTML</h3>
+        <p>
+            Para armar el html se tendran que crear 3 archvios, el primero estaria siendo un html, luego el js y
+            tambien un css. En el archivo html se procede a crear con las etiquetas doctype, html,head, body,
+            donde en head se encuentra la etiqueta title, link con direccion al css, y el script con la direccion
+            de js. <br>
+            En las etiquetas se encuentran dos etiquetas div, el cual estos div contendran una especifica lista no
+            ordenada ul, li en el primer div se aplicara una id llamada meals, y en el otro div un id llamado
+            orders. La primera lista que es de meals, contendra elementos en duro como las li que contendran
+            "completo" y "hamburguesa" y fuera de las listas no ordenadas se encontrara el boton, mientras en la
+            lista no ordenada de Orders contendra en las etiquetas de li
+            "completo - nicolas", "completo - san juan","hamburgesa felipe".
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/armadohtml.jpg">
+            <img id="renglon" src="img/armadohtml2.jpg">
+        </div>
+        <h3>AGREGANDO CSS A NUESTRA APLICACION</h3>
+        <p>
+            Ya que se tiene construido el archivo html, las etiquetas hay que facilitarlas para mejor diseño, es
+            por eso que se va a agregar otro id en las etiquetas de "UL" para poder tener mejor manejo de los
+            elementos, es por eso que en el "UL" de "Meals" escribimos <b>id="meals-list"</b> mientras que en la
+            "UL" de "Orders" se escribe <b>id="orders-list"</b>. <br />
+            Ya que se tienen las etiquetas, se comienza a editar sobre el archivo CSS, el cual se comenzara a
+            aplicar el fondo de color de la etiqueta body, utilizando "background-color:#eee;" y "display:flex;",
+            despues en "body div", se aplica la propiedad de "flex-grow: 1"; para que estas utilicen todo el ancho
+            de la aplicacion, despues se aplica "background-color: white;" para que se separen un poco del borde
+            elegimos 5px para margen superior en inferior y 8px en el lado izquierdo. "margin: 5px 0px 0 px 8px;"
+            mientras el div principal lo que queremos es eliminar el margen de la izquierda y derecha, sin afectar
+            los divs internos para ello se escribe "body div:first-child{margin-left: 0px;}" y
+            "body div:last-child{margin-right: 0px;}" sin embargo, la app no se ve actualizada y es porque los
+            elementos div de id order, no es el ultimo elemento ya que se tiene la etiqueta de script hasta abajo,
+            por ende el archivo html lo tomara como elemento, por ende lo que se procede a hacer es mover el
+            elemento script de hasta abajo, hasta el elemento head, asi mantendra un orden apropiado en la pantalla. <br />
+            Lo siguiente que hay que hacer, es eliminar los <b>bullet-points </b> se escribe
+            "ul{list-style-type:none;}" al boton se le escribe un id tipo submit <b>id="submit"</b> y en css se aplica
+            "#submit{background-color: purple; color:white; padding: 10px 15px; border:solid 0px; border-radius:25px; margin:15px; margin-left: 38px;}"
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/aggrcss.jpg">
+            <img id="renglon" src="img/aggrcss2.jpg">
+        </div>
+        <h3>CREANDO DATOS DE PRUEBA</h3>
+        <p>
+            Para hacer datos de prueba, lo que se va a hacer es abrir postman, lo siguiente que se va a hacer es
+            haciendo uso del metodo POST es generar un registro con la siguiente informacion usando la pesatana "Body"
+            "<b>{"name":"Hamburgesa","desc":"Tomate lechuga jalapeno pina"}</b>" y usando la direccion router
+            "/almuerzi/meals/" que se desarrollo anteriormente en la carpeta "api/index.js" para despues hacer uso del
+            metodo GET capturar el registro
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/creadatos.jpg">
+            <img id="renglon" src="img/creadatos2.jpg">
+        </div>
+        <h3>INTRO A FETCH</h3>
+        <p>
+            Regresando a la pagina de almuerzi, se tiene la lista en "Duro(Significa que es un contenido que no
+            tiene cambios y esta escrito unicamente en html)", sin embargo este sera la herramienta para usar,
+            despues se abrira el archivo de javacript "index.js", la primera instruccion sera la misma que se
+            hablo en un curso anterior "window.onload=()=>{})" y los demas argumentos se encontraran dentro de
+            este argumento, la primera instruccion con promesas sera "fetch" el cual tendra la url que se
+            hablo en el tema anterior "fetch('localhost:3000/api/meals/')" para llamar y traer los datos, para
+            ejecutar se aplica ".then(response.json())", se vuelve a llamar otro ".then(data=>console.log(data))",
+            teniendo la estructura disenada, se refresca la pantalla(F5), para despues que la consola muestre los
+            datos registrados en la base de datos. <br />
+            La consola mostrara un arreglo donde contiene los registros de mongodb, asi con la finalidad de hacer
+            las pruebas necesarias sin presentarlo en la pagina aun.
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/introfetch.jpg">
+        </div>
+        <h3>FETCH</h3>
+        <p>
+           La api de Fetch permite a nosotros poder llamar rutas o urls, e interpretar lo que va a devolver y esto
+           cumple la interfaz de promesas, el metodo se usa .then siempre que se llame a fetch, en este caso
+           ".fetch" recibe una funcion que siempre va a venir la respuesta del llamado que se ha realizado antes,
+           como la ruta en este caso, se tiene la alternativa de json donde se toma el resultado y se va a
+           transformar en un <b>json()</b> o tambien se puede convertir en un <b>texto</b> o en un <b>xml</b>, el
+           cual el que se va a usar <b>json()</b> ya que esta llegando un texto y se va a convertir con "json()",
+           si fuese texto, lo que sucedera es que vendra un solo string y no el arreglo que se tenia antes porque
+           cuando se esta utilizando la sintaxis de "data[0]", lo que mostrara en primer elemento sera el corchete
+           abriendo pues como lo que se utilizo fue un string, se comenzo a buscar cada uno de los elementos de la
+           cadena de caracteres, el cual no generara ningun resultado, es por eso que se hace uso del "json()"", y
+           con "data[0]" se utiliza el primer elemento de arreglo. dentro de las cosas que se pueden hacer usando
+           "Fetch", es que se puede cambiar la peticion que se esta realizando, las cuales se puede utilizar la
+           opcion de method que se esta realizando como "method:'GET',// POST,PUT,DELETE" tambien puede indicar el
+           modo por el cual se puede hacer el llamado como el uso de "mode: 'cors'" tambien se puede indicar si se
+           quiere utilizar el cache, puede indicar que no queremos que el servidor devuelva el cache o el
+           explorador use el cache "cache: 'no-cache'", tambien se puede hacer uso de las credenciales al momento
+           de hacer uso el contacto del servidor que por defecto puede ser el mismo origen
+           "credentials: 'same-origin'", tambien se puede indicar cabeceras, estas son tipos de datos que se
+           pueden agregar en cada peticion como las sesiones o las cookies para enviarselos al servidor asi saber
+           quien es el usuario, esto va a servir como llave para identificar al usuario en el servidor
+           "headers:{ //Tipos de datos que podemos agregar por cada peticion'Content.Type': 'application/json'}",
+           tambien se puede indicar si se quieren ser redirigidos cuando se contacte al servidor, ya que si el
+           servidor los envia a otro sitio web, se le puede indicar que los siga y obtener los datos luego de esta
+           nueva pagina "redirect: 'follow'", y uno de los datos mas importantes, cunado se esta haciendo un
+           llamado por POST, PUT, DELETE, se puede enviar mas datos en el cuerpo del mensaje a travez de la
+           cabecera o tambien del cuerpo sin embargo se tiene que viajar como un string, por lo cual si se le pasa
+           un objeto, como "body: JSON.stringify({user: 'lala',password: 'yomerengues'})", el user y password se
+           tiene que pasar como un string. <br /> 
+           Es por eso que si no se va a pasar ninguna opcion entonces tomara el valor por defecto, el cual es el
+           GET. <br />
+           Esa es la razon por la cual se realiza el llamado y aun asi sigue funcionando sin necesidad de usar
+           todas las otras opciones  y se sigue recibiendo los datos y seguira mostrando la informacion en consola.
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/fetch.jpg">
+            <img id="renglon" src="img/fetch3.jpg">
+        </div>
+        <h3>MOSTRANDO LISTADO DE MEALS</h3>
+        <p>
+            Una vez tendiendo los datos en la consola, lo que se va a hacer es cambiar la lista en Duro y se va
+            escribir un parrafo que diga "Cargando..." el cual sera el nuevo elemento en duro, todo esto en html,
+            despues usamos el archivo "main.js" para que reemplace el parrafo dentro de la lista no ordenada de
+            "meals-list", lo siguiene que se va a hacer es eliminar el argumento de "console.log(data)" y se abre
+            una funcion para obtener el elemento, el cual dentro de este se escribira lo siguiuiente:
+            "{const mealsList=document.ElementById('meals-list') const template=data.map(x=>'&lt;li>'+x.name+'&lt;/li>').join('') mealsList.innerHTML=template}"
+            despues de guarda y se refresca(F5) y se mostrara los objetos que se van a cargar.
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/listadmeals.jpg">
+            <img id="renglon" src="img/fetch3.jpg">
+        </div>
+        <h3>DESABILITANDO BOTON</h3>
+        <p>
+            Cuando se actualiza la pagina, se puede notar que se encuentra el parrafo que dice cargando y despues
+            cambia al listado, sin embargo el boton submit, este va a seguir deshabilitado, aunque eso esta bien,
+            aunque hay que quitarle ese atributo y para hacerlo, hay que agregar el boton submit en "index.js" lo
+            siguiente "submit.removeAttribute('disable')" y al probarlo, el atributo estara cargando y no estara
+            habilitado para presionar mientras esta cargando, es por eso que se buscara el archivo "main.css" y se
+            agregara lo siguiente "#submit:disabled{background-color: gray}" para que mientras este deshabilitado,
+            se muestre en ese color.
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/disabut.jpg">
+            <img id="renglon" src="img/disabut2.jpg">
+            <img id="renglon" src="img/fetch2.jpg">
+        </div>
+        <h1>SELECCIONANDO LAS MEALS</h1>
+        <p>
+            Para que funcione el seleccionado de las meals, lo primero que se tiene que hacer es comprender que el
+            template en su funcion "data.map" tiene un identificador que no cambia aunque fueran varios elementos, y
+            para que esto funcione, lo que se tiene que hacer es crear una funcion adicional, fuera de "window.onload"
+            y esta funcion se llamara renderItem y esta funcion va a ser referida del template, entonces se borra toda
+            la funcion de la variable x con su fat arrow function y se reemplazara por el nombre de la funcion que se
+            esta desarrollando, esta funcion la vamos a componer de la siguiente manera
+            "const renderItem=(item)=>{return`&lt;li data-id="${item._id}">{item.name}&lt;/li>`}" y al momento de
+            actualizar la pagina, va a cargar los datos y en la consola va a identificar el _id que la funcion template
+            esta realizando y se muestra el "item._id" en la consola se presentara asi
+            "&lt;li data-id="622270f34a2a850f4cf44444">Hamburgesa&lt;/li>" y ese sera el identificador unico demostrado
+            por cadena de caracteres, y este va a presentarselo al servidor. <br />
+            <b>NOTA:<br /> Este identificador que dice "item._id, proviene de la base de datos el cual se encuentra
+                en un segundo nivel que proviene desde mismo mongo."</b>
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/selectmls.jpg">
+            <img id="renglon" src="img/selectmls2.jpg">
+        </div>
+        <h3>PARTE 1: TEMPLATE STRINGS</h3>
+        <p>
+            Para seleccionar el elemento de meal una vez que se haga click sobre este elemento, lo primero a hacer es
+            que cuando se vaya a imprimir en el archivo de javascript, cuando se vaya a pasar en el iner html, tenemos
+            que identificar cual elemento es cual, el nombre puede ser repetido, pero el id es unico y no se puede repetir
+            por eso se puede utilizar este para poder identificar a cual se esta haciendo el click, es por eso que se debe 
+            crear una funcion para la plantilla, esta funcion se llamara
+            "const renderItem=(item)=>{return`&lt;li>${item.name}&lt;li>`}" esto se localizara fuera de window.onload,
+            y para que sea llamado, dentro de window onload, donde se encuentra "const template"... se quitara la seccion
+            de los &lt;li> y se escribira "renderItem" para que siga renderizando. como tal quedaria de la siguiente manera
+            "const template=data.map(renderItem).join('')", para despues continuar con la funcion integrandole un "data-id"
+            y en este id se contendra "$(item._id)", una vez realizado, se prueba en la pagina para ver que los elementos 
+            contengan el id, su finalidad es que cuando se presione sobre alguno de los elementos, baya a buscar estos
+            atributos y los guarde en la memoria de manera que cuando se presione en submit, se tenga guardado el id en la 
+            para que baya a buscar el usuario en contexto y se lo mande al servidor
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/pt1tempstr.jpg">
+            <img id="renglon" src="img/pt1tempstr2.jpg">
+        </div>
+        <h3>PARTE 2: CAMBIANDO FORMA DE RENDERIZAR</h3>
+        <p>
+            Una vez creada la plantilla de lo que va a renderizar, tendra que dar la posibilidad al elemento que cuando se
+            de un click para que este realice una accion, sobre todo en este caso con el id, que se tiene en la variable,
+            sin embargo lo que esta devolviendo es un string, por lo cual se tienen dos alternativas, el cual puede 
+            renderizar el contenido luego ir a buscar alguno de estos y agregar el evento de un click pero es un metodo que
+            no es tan bueno porque no se esta encapsulanto todo el item de la misma funcion. La otra alternativa es crear
+            un elemento html dentro de esta funcion con ayuda de otra funcion despues indicarle a la plantilla de meals list
+            que baya agregando los elementos que se han ido encontrando, por ende se optara la segunda alternativa. Finalmente
+            esta funcion quedara como unn especie de motor que va a renderizar los elementos en una primera instancia pero todos
+            los elementos podran tener la probabilidad de poder crearse ellos y poder ir agregando elementos el cual se podra
+            escuchar cuando se le de click al elemento, por ende se creara una funcion que convertira el <b>string en un 
+            lemento de html</b> para ello se procede a hacer la funcion
+            "const stringToHTML=(string)=>{const parser=new DOMParser() const doc=parser.parseFromString(string,'text/html') console.log(doc)}"<br />
+            En la funcion de "renderItem", se agrega el llamado de la funcion y se agrega dentro lo que el return contiene 
+            "stringToHTML(`&lt;li data-id="${item_id}">${item.name} &lt;/li>`)", se refresca la pagina, y mostrara el elemento
+            body que es de interes mostrandose en console de la pagina, por lo que se va a hacer es remplazar el "console.log(doc)"
+            se reemplazara por un "return doc.body.firstChild siendo firstChild el primer elemento que se encuentra en la etiqueta
+            de body, es por eso que el original "return" de la funcion de render y se escribe "const elemento =" justo detras de "stringToHTML"
+            y se va a ver lo que devuelve esto. por ultimo en la funcion render, se procede a hacer un <b>console log</b>
+            despues de llamara "stringTo HTML" que lo que sucedera es que en la consola, va amostrarse los elementos, pero en
+            la funcion "stringToHTML" en su pagina, mostrara puros objetos [object HTMLElement], lo cual para console, es bueno
+            porque con esto, se comenzara a hacer escuchadores de elementos, por ende se continua eliminando el 
+            "console.log(element)", hay que entender que para cambiar eso hay que cambiar la implementacion en "window.onload"
+            en la parte de "template=..." se va a eliminar la funcion ".join("")", ahora hay que entender que los const que
+            estan en "window.onload..." que son los <b>const</b> son elementos html, que se van a tener que iterar, lo que
+            se tiene que indicar que es una lista te items el cual se tendra que borrar tambien el valor "template" y en cambio
+            se va a cambiar por "listItems" de tal manera que quedara asi "const listItems=data.map(renderItem)" y despues se
+            tiene que iterar, colocando una nueva linea debajo escribiendo
+            "listItem.forEach(element=>mealsList.appendChild(element))" lo que hace es agregar cada uno de los elementos en la
+            plantilla, despues se elimina la linea de "mealsList.innerHTML=template" y se muestra como comienzan aparecer los
+            elementos, sin embargo lo que sigue apareciendo es el elemento <b>parrafo</b> de "Cargando...", lo que pasara es cambiar
+            algunos detalles mas.
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/pt2rendfrmch.jpg">
+            <img id="renglon" src="img/pt2rendfrmch2.jpg">
+        </div>
+        <h3>PARTE 3: ELIMINANDO EL TEXTO O CARGANDO</h3>
+        <p>
+            Para eliminar el elemento de "Cargando..." se va a acceder al metodo que contiene "mealsList", este puede eliminar
+            a sus propios hijos, para eso se tiene que llamar a "mealsList" en la linea siguiente "mealsList.removeChild(oldChild)"
+            "removeChild" va a recibir un elemento html como argumento, para eso hay que indicarle el primer hijo que seria
+            la lista "ul" que en este caso va a ser el texto que dice "cargando..." por eso en realidad se cambiaria de "oldChild"
+            a un "mealsList.removeChild(mealsList.firstElementChild)", no se va a poner el "old child" porque va a estar entregando
+            una representacion de un elemento, pero no el elemento mismo para eliminarlo, siendo asi, se podra hacer <b>appendChild</b>.
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/delcargelem.jpg">
+            <img id="renglon" src="img/delcargelem2.jpg">
+            <img id="renglon" src="img/delcargelem3.jpg">
+        </div>
+        <h3>PARTE 4: AGREGANDO CLASE SELECTED</h3>
+        <p>
+            Ya que se ha eliminado el "firstElementChild", es momento de agregarle un escuchador de deventos en "element" de la
+            funcion de render item, para eso se va a generar un espacion entre lineas de "const element" y "return element" para
+            despues escribir lo siguiente "element.addEventListener(type,listener)", este es el metodo que van a tener todos los
+            elementos html y con esto se puede comenzara  asignar los elementos que se estan escuchando y el que se tiene de interes
+            es el de "click" es por eso que se va adar la funicion que se va a encargar de ejecutarse cuando se de click al item
+            a modo de ejemplo para poder ver lo que se puede ver que es lo que se puede hacer con la funcion el cual se escribe de
+            la siguiente manera "element.addEventListener('click',()=>{})", y para ver lo que va a contener se integra "console.log(item)"
+            para ello se refresca la pantalla y en la consola al presionar un elemento apareceran los datos de estos elementos. <br />
+            Ya que se sabe sobre lo siguiente, se tiene que buscar la manera para seleccionar el item, entonces para seleccionar,
+            se tiene que agregar un elemento de "seleccionado" para agregarle esta clase a los elementos que se encuentran dentro
+            de este meals list, ya para eso, dentro de la misma funcion "element.addEventListener", se elimina el "console.log"
+            y se escribe lo siguiente para agregarle el class al elemento "element.classList.add('selected')", al refrescar la
+            pantalla, en la consola de html, al presionar cada elemento, solito se agrega la clase.
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/addslclass.jpg">
+            <img id="renglon" src="img/addslclass2.jpg">
+            <img id="renglon" src="img/addslclass3.jpg">
+            <img id="renglon" src="img/addslclass4.jpg">
+        </div>
+        <h3>PARTE 5: QUITANDO CLASE SELECTED DE OTROS ELEMENTOS</h3>
+        <p>
+            Una vez eliminado el texto de "Cargando..." se puede agregar un escuchador de eventos en la funcion "renderItem", 
+            separamos la linea debajo de "const element..." y se escribe en el espacio vacio "element.addEventListener" (este es
+            un metodo que tendran todos los elementos html y con esto se puede asignar eventos que van a escucharse) con esto 
+            se va a escuchar el de "click"  y seguido de eso se pondra la funcion que se encargara de ejecutarse cuando se de click
+            en el item, a modo de ejemplo para poder ver lo que se puede hacer con lo que se acaba de escribir como se esta recibiendo
+            el item, se podra indicar a un "console.log(item)" para ver cual es el item a renderizar. La linea a probar es 
+            "element.addeventListener('click',()=>{ console.log(item)})" al refrescar la pantalla, apareceran los datos en la consola
+            Se actualiza en la pagina y se prueba, en la consola saldra el resultado de esta funcion. <br />
+            Lo siguiente que hacer es borrar el "console.log(item)" y llamar al mismo "elemento", dentro de esto hay que agregarle una
+            clase al elemento que se tiene en js, entonces se utilizara "classList.add('selected')", la linea completa quedara de la
+            manera siguiente "element.classList.add('selected')"se prueba la pagina, para poder comprobar que este funcionando. <br />
+            
+
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/api.jpg">
+            <img id="renglon" src="img/api.jpg">
+        </div>
+        <h3>PARTE 6: AGREGANDO CSS DE ELEMENTOS SELECCIONADOS</h3>
+        <p>
+            
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/api.jpg">
+            <img id="renglon" src="img/api.jpg">
+        </div>
+        <h3>GUARDANDO ID DE MEAL EN EL FORMULARIO</h3>
+        <p>
+            
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/api.jpg">
+            <img id="renglon" src="img/api.jpg">
+        </div>
+        <h3>CONSTRUYENDO LA ORDEN</h3>
+        <p>
+            
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/api.jpg">
+            <img id="renglon" src="img/api.jpg">
+        </div>
+        <h3>CREANDO ORDENES</h3>
+        <p>
+            
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/api.jpg">
+            <img id="renglon" src="img/api.jpg">
+        </div>
+        <h3>MOSTRANDO LAS ORDENES DESDE EL SERVIDOR</h3>
+        <p>
+            
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/api.jpg">
+            <img id="renglon" src="img/api.jpg">
+        </div>
+        <h3>AGREGANDO ORDEN CREADA AL LISTADO</h3>
+        <p>
+            
+        </p>
+        <div id="img">
+            <img id="renglon" src="img/api.jpg">
+            <img id="renglon" src="img/api.jpg">
+        </div>
+    </body>
+</html>
